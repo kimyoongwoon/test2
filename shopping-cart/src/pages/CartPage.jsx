@@ -4,23 +4,22 @@ import { GNB } from "components/GNB";
 import { GNB_TYPE } from "constants/common";
 import { ProductInCart } from "components/ProductInCart";
 import { Box } from "styles/StyleComponent";
+import useCartStore from "../store/cartStore";
 
-function CartPage({ cart, setCart }) {
+function CartPage() {
+  // Zustand store에서 장바구니 아이템 가져오기
+  const items = useCartStore((state) => state.items);
+
   return (
     <Base>
       <GNB type={GNB_TYPE.MAIN} />
       <Inner>
         <Box gap={30}>
-          {!cart || cart.length <= 0 ? (
+          {!items || items.length <= 0 ? (
             <Text>등록된 상품이 없습니다.</Text>
           ) : (
-            cart.map((product, id) => (
-              <ProductInCart
-                key={id}
-                product={product}
-                cart={cart}
-                setCart={setCart}
-              />
+            items.map((product, id) => (
+              <ProductInCart key={id} product={product} />
             ))
           )}
         </Box>

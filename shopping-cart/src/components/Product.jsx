@@ -3,16 +3,24 @@ import { Button } from "./Button";
 import { useNavigate } from "react-router-dom";
 import { PAGE } from "constants/common";
 import { Box } from "styles/StyleComponent";
+import useCartStore from "../store/cartStore";
 
-export const Product = ({ product, cart, setCart, ...rest }) => {
+export const Product = ({ product, ...rest }) => {
   const navigate = useNavigate();
 
+  // Zustand store에서 필요한 함수와 상태 가져오기
+  const addItem = useCartStore((state) => state.addItem);
+  const items = useCartStore((state) => state.items);
+
   const handleCart = (product) => {
-    if (cart.find((item) => item.id === product.id)) {
+    // 이미 장바구니에 있는지 확인
+    if (items.some((item) => item.id === product.id)) {
       alert("이미 장바구니에 추가된 상품입니다.");
       return;
     }
-    setCart((prev) => [...prev, product]);
+
+    // 장바구니에 추가
+    addItem(product);
     alert("장바구니에 추가되었습니다.");
   };
 

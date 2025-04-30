@@ -4,15 +4,16 @@ import { GNB_TYPE, PRODUCTS } from "constants/common";
 import styled from "@emotion/styled";
 import { Product } from "components/Product";
 import { Box } from "styles/StyleComponent";
+// 더 이상 cart와 setCart를 prop으로 받지 않음
 
-function HomePage({ cart, setCart }) {
+function HomePage() {
   return (
     <Base>
       <GNB type={GNB_TYPE.MAIN} />
       <Inner>
         <Box gap={30}>
           {PRODUCTS.map((product, id) => (
-            <Product key={id} product={product} cart={cart} setCart={setCart} />
+            <Product key={id} product={product} />
           ))}
         </Box>
       </Inner>

@@ -3,13 +3,17 @@ import { Button } from "./Button";
 import { useNavigate } from "react-router-dom";
 import { PAGE } from "constants/common";
 import { Box } from "styles/StyleComponent";
+import useCartStore from "../store/cartStore";
 
-export const ProductInCart = ({ product, cart, setCart, ...rest }) => {
+export const ProductInCart = ({ product, ...rest }) => {
   const navigate = useNavigate();
 
+  // Zustand store에서 removeItem 함수 가져오기
+  const removeItem = useCartStore((state) => state.removeItem);
+
   const handleRemove = (product) => {
-    const newCart = cart.filter((item) => item !== product);
-    setCart(newCart);
+    // 장바구니에서 제품 제거
+    removeItem(product);
   };
 
   return (
